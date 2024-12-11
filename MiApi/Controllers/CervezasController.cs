@@ -8,21 +8,11 @@ namespace MiApi.Controllers
     [Route("[controller]")]
     public class CervezasController : ControllerBase
     {
-        private static readonly List<Cervezas> Lista = new List<Cervezas>
+        private static List<Cervezas> Lista = new List<Cervezas>
         {
-            new Cervezas("Corona", 3.0m, "Bélgica"),
-            new Cervezas("Heineken", 4.0m, "Estados Unidos"),
-            new Cervezas("Guinness", 3.5m, "Irlanda")
-        };
-
-        private static readonly String[] Paises = new[]
-{
-            "Bélgica", "Estados Unidos", "Irlanda", "Países Bajos", "México"
-        };
-
-        private static readonly String[] Nombres = new[]
-        {
-            "Corona", "Heineken", "Guinness", "Budweiser", "Stella Artois"
+            new Cervezas(1, "Corona", 3.0m, "Bélgica"),
+            new Cervezas(2, "Heineken", 4.0m, "Estados Unidos"),
+            new Cervezas(3, "Guinness", 3.5m, "Irlanda")
         };
 
         private readonly ILogger<CervezasController> _logger;
@@ -31,7 +21,7 @@ namespace MiApi.Controllers
         {
             _logger = logger;
         }
-    
+
 
         [HttpGet(Name = "Cervezas")]
         public IEnumerable<Cervezas> Get()
@@ -42,32 +32,33 @@ namespace MiApi.Controllers
         [HttpPost]
         public ActionResult<Cervezas> Post([FromBody] Cervezas nuevaCerveza)
         {
-
+            nuevaCerveza.id = Lista.Count + 1;
             nuevaCerveza.Nombre = "Budweiser";
             nuevaCerveza.Graduacion = 5.0m;
             nuevaCerveza.Pais = "Países Bajos";
 
             Lista.Add(nuevaCerveza);
 
-            return CreatedAtAction(nameof(Get), new {}, nuevaCerveza);
+            return CreatedAtAction(nameof(Get), new { }, nuevaCerveza);
         }
 
-        [HttpPut("{Nombre}")]
-        public ActionResult<Cervezas> Put(String nombre, [FromBody] Cervezas cervezaActualizada)
+        [HttpPut("{id}")]
+        public ActionResult<Cervezas> Put(int id, [FromBody] Cervezas cervezaActualizada)
         {
-            var cerveza = Lista[0];
+            var cerveza = Lista.Find(c => c.id == id);
 
+            cerveza.id = 1;
             cerveza.Nombre = "Nuevo nombre";
             cerveza.Graduacion = 33.3m;
             cerveza.Pais = "Nuevo pais";
 
             return Ok(Lista[0]);
         }
- 
-        [HttpDelete("{Nombre}")]
-        public ActionResult Delete(string nombre)
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
         {
-            var cerveza = Lista[0];
+            var cerveza = Lista.Find(c => c.id == id);
 
             Lista.Remove(cerveza);
             return NoContent();
