@@ -10,7 +10,7 @@ namespace MiApi.Controllers
     {
         private static List<Cervezas> Lista = new List<Cervezas>
         {
-            new Cervezas(1, "Estrella", 3.0m, "Bélgica"),
+            new Cervezas(1, "Emilio", 3.0m, "Bélgica"),
             new Cervezas(2, "Heineken", 4.0m, "Estados Unidos"),
             new Cervezas(3, "Guinness", 3.5m, "Irlanda")
         };
