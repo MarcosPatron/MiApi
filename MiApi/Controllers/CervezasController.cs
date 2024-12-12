@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+using MiApi.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MiApi.Controllers
 {
@@ -8,59 +11,58 @@ namespace MiApi.Controllers
     [Route("[controller]")]
     public class CervezasController : ControllerBase
     {
-        //MARCOS
-        private static List<Cervezas> Lista = new List<Cervezas>
-        {
-            new Cervezas(1, "Corona", 3.0m, "Bélgica"),
-            new Cervezas(2, "Heineken", 4.0m, "Estados Unidos"),
-            new Cervezas(3, "Guinness", 3.5m, "Irlanda")
-        };
+        private readonly ApplicationDbContext _context;
 
-        private readonly ILogger<CervezasController> _logger;
-
-        public CervezasController(ILogger<CervezasController> logger)
+        public CervezasController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        [HttpGet(Name = "Cervezas")]
-        public IEnumerable<Cervezas> Get()
+        // GET: /Cervezas
+        [HttpGet(Name = "GetCervezas")]
+        public async Task<IEnumerable<Cervezas>> Get()
         {
-            return Lista;
+            return await _context.Cervezas.ToListAsync();
         }
 
+        // POST: /Cervezas
         [HttpPost]
-        public ActionResult<Cervezas> Post([FromBody] Cervezas nuevaCerveza)
+        public async Task<ActionResult<Cervezas>> Post([FromBody] Cervezas nuevaCerveza)
         {
-            nuevaCerveza.id = Lista.Count + 1;
-            nuevaCerveza.Nombre = "Budweiser";
-            nuevaCerveza.Graduacion = 5.0m;
-            nuevaCerveza.Pais = "Países Bajos";
+            _context.Cervezas.Add(nuevaCerveza);
+            await _context.SaveChangesAsync();
 
-            Lista.Add(nuevaCerveza);
-
-            return CreatedAtAction(nameof(Get), new { }, nuevaCerveza);
+            return CreatedAtAction(nameof(Get), new { id = nuevaCerveza.id }, nuevaCerveza);
         }
 
+        // PUT: /Cervezas/{id}
         [HttpPut("{id}")]
-        public ActionResult<Cervezas> Put(int id, [FromBody] Cervezas cervezaActualizada)
+        public async Task<ActionResult<Cervezas>> Put(int id, [FromBody] Cervezas cervezaActualizada)
         {
-            var cerveza = Lista.Find(c => c.id == id);
+            if (id != cervezaActualizada.id)
+            {
+                return BadRequest();
+            }
 
-            cerveza.id = 1;
-            cerveza.Nombre = "Nuevo nombre";
-            cerveza.Graduacion = 33.3m;
-            cerveza.Pais = "Nuevo pais";
+            _context.Entry(cervezaActualizada).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-            return Ok(Lista[0]);
+            return NoContent();
         }
 
+        // DELETE: /Cervezas/{id}
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var cerveza = Lista.Find(c => c.id == id);
+            var cerveza = await _context.Cervezas.FindAsync(id);
+            if (cerveza == null)
+            {
+                return NotFound();
+            }
 
-            Lista.Remove(cerveza);
+            _context.Cervezas.Remove(cerveza);
+            await _context.SaveChangesAsync();
+
             return NoContent();
         }
     }
