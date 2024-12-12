@@ -22,7 +22,6 @@ namespace MiApi.Controllers
             _logger = logger;
         }
 
-
         [HttpGet(Name = "Cervezas")]
         public IEnumerable<Cervezas> Get()
         {
