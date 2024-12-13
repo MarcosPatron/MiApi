@@ -14,15 +14,15 @@ namespace MiApi.Migrations
                 name: "CERVEZAS",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
                     Nombre = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Graduacion = table.Column<decimal>(type: "DECIMAL(18, 2)", nullable: false),
+                    Graduacion = table.Column<decimal>(type: "DECIMAL(5,2)", precision: 5, scale: 2, nullable: false),
                     Pais = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CERVEZAS", x => x.id);
+                    table.PrimaryKey("PK_CERVEZAS", x => x.Id);
                 });
         }
 

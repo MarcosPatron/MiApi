@@ -23,14 +23,15 @@ namespace MiApi.Migrations
 
             modelBuilder.Entity("MiApi.Cervezas", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Graduacion")
-                        .HasColumnType("DECIMAL(18, 2)");
+                        .HasPrecision(5, 2)
+                        .HasColumnType("DECIMAL(5,2)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -40,7 +41,7 @@ namespace MiApi.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("CERVEZAS", (string)null);
                 });
