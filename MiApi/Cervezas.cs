@@ -11,17 +11,17 @@ namespace MiApi
         [Key]
         public int Id { get; set; }
 
-        public required string Nombre { get; set; } // Marcada como obligatoria
+        public required string Nombre { get; set; } 
 
         [Precision(5, 2)]
         public decimal Graduacion { get; set; }
 
-        public required string Pais { get; set; } // Marcada como obligatoria
+        public required string Pais { get; set; } 
 
         // Constructor con parámetros
-        public Cervezas(int id, string nombre, decimal graduacion, string pais)
+        public Cervezas(int id_cerveza, string nombre, decimal graduacion, string pais)
         {
-            Id = id;
+            Id = id_cerveza;
             Nombre = nombre;
             Graduacion = graduacion;
             Pais = pais;

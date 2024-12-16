@@ -29,14 +29,14 @@ namespace MiApi.Controllers
             _context.Cervezas.Add(nuevaCerveza);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(Get), new { id = nuevaCerveza.Id }, nuevaCerveza); // Cambié 'id_cerveza' por 'Id'
+            return CreatedAtAction(nameof(Get), new { id_cerveza = nuevaCerveza.Id }, nuevaCerveza); 
         }
 
         // PUT: /Cervezas/{id}
         [HttpPut("{id}")]
-        public async Task<ActionResult<Cervezas>> Put(int id, [FromBody] Cervezas cervezaActualizada)
+        public async Task<ActionResult<Cervezas>> Put(int id_cerveza, [FromBody] Cervezas cervezaActualizada)
         {
-            if (id != cervezaActualizada.Id)  // Cambié 'id_cerveza' por 'Id'
+            if (id_cerveza != cervezaActualizada.Id)  
             {
                 return BadRequest();
             }
@@ -48,10 +48,10 @@ namespace MiApi.Controllers
         }
 
         // DELETE: /Cervezas/{id}
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(int id)
+        [HttpDelete("{id_cerveza}")]
+        public async Task<ActionResult> Delete(int id_cerveza)
         {
-            var cerveza = await _context.Cervezas.FindAsync(id);
+            var cerveza = await _context.Cervezas.FindAsync(id_cerveza);
             if (cerveza == null)
             {
                 return NotFound();
