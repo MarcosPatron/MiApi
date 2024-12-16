@@ -4,27 +4,31 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MiApi
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class Cervezas
     {
-        [Key] // Marca esta propiedad como clave primaria
-        public int Id { get; set; }  // Cambié 'id_cerveza' por 'Id'
+        [Key]
+        public int Id { get; set; }
 
-        public string Nombre { get; set; }
+        public required string Nombre { get; set; } // Marcada como obligatoria
 
-        [Precision(5, 2)] // Ejemplo: hasta 3 dígitos enteros y 2 decimales.
+        [Precision(5, 2)]
         public decimal Graduacion { get; set; }
 
-        public string pais { get; set; }
+        public required string Pais { get; set; } // Marcada como obligatoria
 
+        // Constructor con parámetros
         public Cervezas(int id, string nombre, decimal graduacion, string pais)
         {
-            Id = id;  // Cambié 'id_cerveza' por 'Id'
+            Id = id;
             Nombre = nombre;
             Graduacion = graduacion;
-            pais = pais;
+            Pais = pais;
         }
 
-        // Constructor sin parámetros
+        // Constructor sin parámetros sigue siendo válido
         public Cervezas() { }
     }
+
 }
