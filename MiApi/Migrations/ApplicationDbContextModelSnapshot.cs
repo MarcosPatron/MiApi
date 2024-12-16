@@ -23,27 +23,27 @@ namespace MiApi.Migrations
 
             modelBuilder.Entity("MiApi.Cervezas", b =>
             {
-                b.Property<int>("IdCerveza") // Cambiado desde "id_cerveza"
-                    .ValueGeneratedNever() // No es autoincremental según tu definición
-                    .HasColumnType("NUMBER"); // Cambiado a NUMBER (sin especificar longitud porque es PRIMARY KEY)
+                b.Property<int>("id_cerveza") 
+                    .ValueGeneratedNever()
+                    .HasColumnType("NUMBER");
 
-                b.Property<decimal>("Graduacion")
-                    .HasPrecision(5, 2) // Ajusta la precisión de NUMBER(5, 2)
+                b.Property<decimal>("graduacion")
+                    .HasPrecision(5, 2) 
                     .HasColumnType("NUMBER(5,2)");
 
-                b.Property<string>("Nombre")
+                b.Property<string>("nombre")
                     .IsRequired()
-                    .HasMaxLength(100) // Cambiado para coincidir con VARCHAR2(100)
+                    .HasMaxLength(100) 
                     .HasColumnType("NVARCHAR2(100)");
 
-                b.Property<string>("Pais")
+                b.Property<string>("pais")
                     .IsRequired()
-                    .HasMaxLength(100) // Cambiado para coincidir con VARCHAR2(100)
+                    .HasMaxLength(100)
                     .HasColumnType("NVARCHAR2(100)");
 
-                b.HasKey("IdCerveza"); // Definido como clave primaria
+                b.HasKey("id_cerveza");
 
-                b.ToTable("CERVEZAS", (string)null); // Tabla CERVEZAS en la base de datos
+                b.ToTable("Cervezas", (string)null);
             });
 #pragma warning restore 612, 618
         }

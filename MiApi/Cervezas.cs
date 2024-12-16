@@ -9,22 +9,22 @@ namespace MiApi
     public class Cervezas
     {
         [Key]
-        public int Id { get; set; }
+        public int id_cerveza { get; set; }
 
-        public required string Nombre { get; set; } 
+        public required string nombre { get; set; } 
 
         [Precision(5, 2)]
-        public decimal Graduacion { get; set; }
+        public decimal graduacion { get; set; }
 
-        public required string Pais { get; set; } 
+        public required string pais { get; set; } 
 
         // Constructor con parámetros
         public Cervezas(int id_cerveza, string nombre, decimal graduacion, string pais)
         {
-            Id = id_cerveza;
-            Nombre = nombre;
-            Graduacion = graduacion;
-            Pais = pais;
+            this.id_cerveza = id_cerveza;
+            this.nombre = nombre;
+            this.graduacion = graduacion;
+            this.pais = pais;
         }
 
         // Constructor sin parámetros sigue siendo válido

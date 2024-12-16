@@ -11,18 +11,18 @@ namespace MiApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "CERVEZAS",
+                name: "Cervezas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    id_cerveza = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Nombre = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Graduacion = table.Column<decimal>(type: "DECIMAL(5,2)", precision: 5, scale: 2, nullable: false),
-                    Pais = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    nombre = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    graduacion = table.Column<decimal>(type: "DECIMAL(5,2)", precision: 5, scale: 2, nullable: false),
+                    pais = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CERVEZAS", x => x.Id);
+                    table.PrimaryKey("PK_CERVEZAS", x => x.id_cerveza);
                 });
         }
 
@@ -30,7 +30,7 @@ namespace MiApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CERVEZAS");
+                name: "Cervezas");
         }
     }
 }

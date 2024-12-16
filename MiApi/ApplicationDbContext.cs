@@ -15,7 +15,7 @@ namespace MiApi.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Cervezas>().ToTable("CERVEZAS");
+            modelBuilder.Entity<Cervezas>().ToTable("Cervezas");
         }
     }
 }
