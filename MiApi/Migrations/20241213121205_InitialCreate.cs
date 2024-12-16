@@ -11,7 +11,7 @@ namespace MiApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Cervezas",
+                name: "CERVEZAS",
                 columns: table => new
                 {
                     id_cerveza = table.Column<int>(type: "NUMBER(10)", nullable: false)
@@ -30,7 +30,7 @@ namespace MiApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Cervezas");
+                name: "CERVEZAS");
         }
     }
 }

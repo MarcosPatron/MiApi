@@ -23,27 +23,27 @@ namespace MiApi.Migrations
 
             modelBuilder.Entity("MiApi.Cervezas", b =>
             {
-                b.Property<int>("id_cerveza") 
+                b.Property<int>("ID_CERVEZA") 
                     .ValueGeneratedNever()
                     .HasColumnType("NUMBER");
 
-                b.Property<decimal>("graduacion")
+                b.Property<decimal>("GRADUACION")
                     .HasPrecision(5, 2) 
                     .HasColumnType("NUMBER(5,2)");
 
-                b.Property<string>("nombre")
+                b.Property<string>("NOMBRE")
                     .IsRequired()
                     .HasMaxLength(100) 
                     .HasColumnType("NVARCHAR2(100)");
 
-                b.Property<string>("pais")
+                b.Property<string>("PAIS")
                     .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnType("NVARCHAR2(100)");
 
-                b.HasKey("id_cerveza");
+                b.HasKey("ID_CERVEZA");
 
-                b.ToTable("Cervezas", (string)null);
+                b.ToTable("CERVEZAS", (string)null);
             });
 #pragma warning restore 612, 618
         }
