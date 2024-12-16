@@ -29,14 +29,14 @@ namespace MiApi.Controllers
             _context.Cervezas.Add(nuevaCerveza);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(Get), new { id_cerveza = nuevaCerveza.id_cerveza }, nuevaCerveza); 
+            return CreatedAtAction(nameof(Get), new { id_cerveza = nuevaCerveza.ID_CERVEZA }, nuevaCerveza); 
         }
 
         // PUT: /Cervezas/{id}
-        [HttpPut("{id_cerveza}")]
+        [HttpPut("{id}")]
         public async Task<ActionResult<Cervezas>> Put(int id_cerveza, [FromBody] Cervezas cervezaActualizada)
         {
-            if (id_cerveza != cervezaActualizada.id_cerveza)  
+            if (id_cerveza != cervezaActualizada.ID_CERVEZA)  
             {
                 return BadRequest();
             }
