@@ -22,29 +22,29 @@ namespace MiApi.Migrations
             OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("MiApi.Cervezas", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)");
+            {
+                b.Property<int>("IdCerveza") // Cambiado desde "id_cerveza"
+                    .ValueGeneratedNever() // No es autoincremental según tu definición
+                    .HasColumnType("NUMBER"); // Cambiado a NUMBER (sin especificar longitud porque es PRIMARY KEY)
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                b.Property<decimal>("Graduacion")
+                    .HasPrecision(5, 2) // Ajusta la precisión de NUMBER(5, 2)
+                    .HasColumnType("NUMBER(5,2)");
 
-                    b.Property<decimal>("Graduacion")
-                        .HasPrecision(5, 2)
-                        .HasColumnType("DECIMAL(5,2)");
+                b.Property<string>("Nombre")
+                    .IsRequired()
+                    .HasMaxLength(100) // Cambiado para coincidir con VARCHAR2(100)
+                    .HasColumnType("NVARCHAR2(100)");
 
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                b.Property<string>("Pais")
+                    .IsRequired()
+                    .HasMaxLength(100) // Cambiado para coincidir con VARCHAR2(100)
+                    .HasColumnType("NVARCHAR2(100)");
 
-                    b.Property<string>("Pais")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                b.HasKey("IdCerveza"); // Definido como clave primaria
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CERVEZAS", (string)null);
-                });
+                b.ToTable("CERVEZAS", (string)null); // Tabla CERVEZAS en la base de datos
+            });
 #pragma warning restore 612, 618
         }
     }
