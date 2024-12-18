@@ -16,10 +16,24 @@ namespace MiApi.Controllers
         }
 
         // GET: /Cervezas
-        [HttpGet(Name = "GetCervezas")]
+        [HttpGet]
         public async Task<IEnumerable<Cervezas>> Get()
         {
             return await _context.Cervezas.ToListAsync();
+        }
+
+        // GET: /Cervezas/{id_cerveza}
+        [HttpGet("{id_cerveza:int}")] // Especificamos que id_cerveza es un entero
+        public async Task<ActionResult<Cervezas>> GetById(int id_cerveza)
+        {
+            var cerveza = await _context.Cervezas.FindAsync(id_cerveza);
+
+            if (cerveza == null)
+            {
+                return NotFound(); // Devuelve 404 si no se encuentra
+            }
+
+            return Ok(cerveza); // Devuelve 200 con los datos de la cerveza
         }
 
         // POST: /Cervezas
@@ -29,14 +43,14 @@ namespace MiApi.Controllers
             _context.Cervezas.Add(nuevaCerveza);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(Get), new { id_cerveza = nuevaCerveza.ID_CERVEZA }, nuevaCerveza); 
+            return CreatedAtAction(nameof(GetById), new { id_cerveza = nuevaCerveza.ID_CERVEZA }, nuevaCerveza);
         }
 
-        // PUT: /Cervezas/{id}
-        [HttpPut("{id}")]
+        // PUT: /Cervezas/{id_cerveza}
+        [HttpPut("{id_cerveza:int}")]
         public async Task<ActionResult<Cervezas>> Put(int id_cerveza, [FromBody] Cervezas cervezaActualizada)
         {
-            if (id_cerveza != cervezaActualizada.ID_CERVEZA)  
+            if (id_cerveza != cervezaActualizada.ID_CERVEZA)
             {
                 return BadRequest();
             }
@@ -47,8 +61,8 @@ namespace MiApi.Controllers
             return NoContent();
         }
 
-        // DELETE: /Cervezas/{id}
-        [HttpDelete("{id_cerveza}")]
+        // DELETE: /Cervezas/{id_cerveza}
+        [HttpDelete("{id_cerveza:int}")]
         public async Task<ActionResult> Delete(int id_cerveza)
         {
             var cerveza = await _context.Cervezas.FindAsync(id_cerveza);
